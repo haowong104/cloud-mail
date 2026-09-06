@@ -1,19 +1,23 @@
 name = "cloud-mail"
+
 main = "src/index.js"
+
 compatibility_date = "2025-06-04"
+
 keep_vars = true
 
 [observability]
+
 enabled = true
 
-#[[d1_databases]]
-#binding = "db"			#d1数据库绑定名默认不可修改
-#database_name = ""		#d1数据库名字
-#database_id = ""		#d1数据库id
+[[d1_databases]]
+binding = "db"			#d1数据库绑定名默认不可修改
+database_name = "haowongmail"
+database_id = "2be1f8aa-2478-4cf9-be57-9269d5a0458b"
 
-#[[kv_namespaces]]
-#binding = "kv"			#kv绑定名默认不可修改
-#id = ""					#kv数据库id
+[[kv_namespaces]]
+binding = "kv"			#kv绑定名默认不可修改
+id = "16a7cb5b6ce248de9a7856f55361d531"
 
 #[[r2_buckets]]
 #binding = "r2"			#r2对象存储绑定名默认不可修改
@@ -23,19 +27,24 @@ enabled = true
 #name = "email"			#CF发件, 配置后优先使用
 
 [ai]
+
 binding = "ai"
 
 [assets]
+
 binding = "assets"		#静态资源绑定名默认不可修改
 directory = "./dist"	#前端vue项目打包的静态资源存放位置,默认dist
 not_found_handling = "single-page-application"
 run_worker_first = true
 
 [triggers]
-crons = ["0 * * * *"]	#每小时执行；resetDaySendCount 仅在 UTC 0 点生效
 
+crons = [
+  "0 * * * *"
+]				#每小时执行；resetDaySendCount 仅在 UTC 0 点生效
 
 [vars]
+
 #ai_model = ""			#ai模型,不填默认使用@cf/meta/llama-3.1-8b-instruct-fast
 #analysis_cache = false			#是否开启分析数据缓存
 #orm_log = false			#是否sql日志
@@ -44,4 +53,5 @@ crons = ["0 * * * *"]	#每小时执行；resetDaySendCount 仅在 UTC 0 点生�
 #jwt_secret = ""			#jwt令牌的密钥,随便填一串字符串
 
 [build]
+
 command = "pnpm --prefix ../mail-vue install && pnpm --prefix ../mail-vue run build"
